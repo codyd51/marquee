@@ -21,7 +21,7 @@ void mq_px_off(int x, int y) {
 }
 
 void mq_time_step(void) {
-		usleep(25000);
+		usleep(20000);
 		NSImage* img = [[NSImage alloc] initWithCGImage:[rep CGImage] size:viewport_rect.size];
 		[imageView setImage:img];
 }
@@ -57,7 +57,7 @@ int main(int argc, char** argv) {
 
 		dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul);
 		dispatch_async(queue, ^{
-				char* msg = "This is an example of a scrolling text label too big for its bounds";
+				char* msg = "Hello world! Graphical demo of marquee";
 				render_string(msg, strlen(msg), 50, 2);
 		});
 
