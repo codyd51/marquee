@@ -21,7 +21,7 @@ void mq_init(int width, int height) {
 		mq_height = height;
 }
 
-bool verify_coord(int x, int y) {
+bool mq_verify_coord(int x, int y) {
 		if (x < 0 ||
 			x >= mq_width ||
 			y < 0 ||
@@ -46,12 +46,29 @@ void render_char(char ch, int x, int y) {
 		}
 }
 
-void render_string(char* str, uint32_t len, int x, int y) {
+void render_string_raw(char* str, uint32_t len, int x, int y) {
 		char* p = str;
 		while (*p && (len--) != 0) {
 				render_char(*p, x, y);
 				x += UNSCALED_FONT_WIDTH;
 				p++;
 		}
+}
+
+static void wait_steps(uint32_t steps) {
+		for (int i = 0; i < steps; i++) {
+				mq_time_step();
+		}
+}
+
+void render_string(char* str, uint32_t len, int x, int y) {
+	render_string_raw(str, len, x, y);
+	wait_steps(25);
+	while (1) {
+			for (int i = 0; i < strnlen(str, len) * UNSCALED_FONT_WIDTH; i++) {
+					render_string_raw(str, len, x - i, y);
+					mq_time_step();
+			}
+	}
 }
 
