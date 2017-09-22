@@ -1,2 +1,8 @@
-marquee
+*.o
+
+client
+draw
+test
+
+libmarquee.a
 
