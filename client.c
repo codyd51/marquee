@@ -29,18 +29,19 @@ void mq_time_step(void) {
 }
 
 void print_viewport(void) {
+		printf("\033[2J");
 		for (int y = 0; y < VIEWPORT_HEIGHT; y++) {
 				for (int x = 0; x < VIEWPORT_WIDTH; x++) {
 						if (viewport[y][x]) {
-								printf("$");
+								putchar('$');
 						}
 						else {
-								printf(".");
+								putchar('.');
 						}
 				}
-				printf("\n");
+				putchar('\n');
 		}
-		printf("\n");
+		putchar('\n');
 }
 
 int main(int argc, char** argv) {
@@ -48,7 +49,8 @@ int main(int argc, char** argv) {
 		mq_init(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
 
 		char* msg = "This is some scrolling text.";
-		render_string(msg, strlen(msg), 50, 1);
+		render_string(msg, strlen(msg), 20, 1);
 
 		return 0;
 }
+
